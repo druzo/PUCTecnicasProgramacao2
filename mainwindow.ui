@@ -17,9 +17,9 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>3</x>
+      <x>0</x>
       <y>0</y>
-      <width>1030</width>
+      <width>1039</width>
       <height>451</height>
      </rect>
     </property>
@@ -117,9 +117,9 @@
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>270</x>
+       <x>570</x>
        <y>20</y>
-       <width>301</width>
+       <width>281</width>
        <height>41</height>
       </rect>
      </property>
@@ -148,6 +148,52 @@
        <width>251</width>
        <height>351</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="qtdeLinhas">
+     <property name="geometry">
+      <rect>
+       <x>355</x>
+       <y>27</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="qtdeColunas">
+     <property name="geometry">
+      <rect>
+       <x>508</x>
+       <y>28</y>
+       <width>60</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>30</y>
+       <width>80</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Qtde. Linhas:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>413</x>
+       <y>30</y>
+       <width>99</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Qtde. Colunas:</string>
      </property>
     </widget>
    </widget>

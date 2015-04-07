@@ -4,11 +4,12 @@
 #include "matriz.h"
 #include "QStandardItemModel"
 #include <QtWidgets/QPlainTextEdit>
+#include "testetemplate.h"
 
 QPlainTextEdit *Saida;
-Matriz mata(10,10);
-Matriz matb(10,10);
-Matriz matc(10,3);
+TesteTemplate<int> testeTemp;
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -29,9 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     model = new QStandardItemModel();
     ui->tabelaResultado->setModel(model);
 
-    mata.gerarValoresRandomicos();
-    matb.gerarValoresRandomicos();
-    matc.gerarValoresRandomicos();
+    ui->qtdeColunas->setText("10");
+    ui->qtdeLinhas->setText("10");
 }
 
 MainWindow::~MainWindow()
@@ -41,6 +41,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
+    Matriz<int> mata(ui->qtdeLinhas->text().toInt(), ui->qtdeColunas->text().toInt());
+    Matriz<int> matb(ui->qtdeLinhas->text().toInt(), ui->qtdeColunas->text().toInt());
+    Matriz<int> matc(ui->qtdeLinhas->text().toInt(), 3);
+
+    mata.gerarValoresRandomicos();
+    matb.gerarValoresRandomicos();
+    matc.gerarValoresRandomicos();
+
     Complexo comp;
     Complexo b(9);
     Complexo c (3, 2);
@@ -60,8 +68,10 @@ void MainWindow::on_pushButton_clicked()
     matc.print(modelo);
 
     modelo = (QStandardItemModel*)ui->tabelaResultado->model();
-    Matriz x = mata + matb;
-    Matriz y = mata - matb;
-    Matriz matResultado = ((x + y) - mata + matb) * matc;
+    Matriz<int> x = mata + matb;
+    Matriz<int> y = mata - matb;
+    Matriz<int> matResultado = ((x + y) - mata + matb) * matc;
     matResultado.print(modelo);
+
+
 }

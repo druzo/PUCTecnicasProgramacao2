@@ -3,32 +3,43 @@
 #include "QStandardItemModel"
 
 
+template <class T>
 class Matriz
 {
 private:
-    int *matriz;
+    T *matriz;
     unsigned int qtdeLinhas, qtdeColunas;
 public:
-    Matriz add(Matriz &matriz);
-    Matriz operator+(Matriz &matriz);
+    Matriz add(Matriz<T> &matriz);
+    Matriz operator+(Matriz<T> &matriz);
 
+    Matriz sub(Matriz<T> &matriz);
+    Matriz operator-(Matriz<T> &matriz);
 
-    Matriz sub(Matriz &matriz);
-    Matriz operator-(Matriz &matriz);
-
-    Matriz mul(Matriz &matriz);
-    Matriz operator*(Matriz &matriz);
+    Matriz mul(Matriz<T> &matriz);
+    Matriz operator*(Matriz<T> &matriz);
 
     Matriz(const unsigned int qtdeLinhas, const unsigned int qtdeColunas);
-    ~Matriz();
+    virtual ~Matriz();
     unsigned int getQtdeLinhas() const;
     unsigned int getQtdeColunas() const;
-    int getValor(const unsigned int linha, const unsigned int coluna);
-    int getValor(const unsigned int posicao);
-    void setValor(const unsigned int linha, const unsigned int coluna, const int valor);
-    void setValor(const unsigned int posicao,const int valor);
+    T getValor(const unsigned int linha, const unsigned int coluna);
+    T getValor(const unsigned int posicao);
+    void setValor(const unsigned int linha, const unsigned int coluna, const T valor);
+    void setValor(const unsigned int posicao,const T valor);
     void print(QStandardItemModel *modelo);
     void gerarValoresRandomicos();
 };
 
+template <class T>
+class Vetor: private Matriz<T>
+{
+public:
+    Vetor<T>(const unsigned int qtdeLinhas):Matriz<T>(qtdeLinhas, 1){}
+    unsigned int getQtdeLinhas() const;
+    T getValor(const unsigned int linha);
+    void setValor(const unsigned int posicao,const T valor);
+    void print(QStandardItemModel *modelo);
+};
+#include "matriz.cpp"
 #endif // MATRIZ_H

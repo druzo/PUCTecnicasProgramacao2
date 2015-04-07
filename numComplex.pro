@@ -15,10 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     complexo.cpp \
-    matriz.cpp
+    ../template.cpp \
+
 
 HEADERS  += mainwindow.h \
     complexo.h \
-    matriz.h
+    matriz.h \
+    ../template.h \
+    testetemplate.h
 
 FORMS    += mainwindow.ui

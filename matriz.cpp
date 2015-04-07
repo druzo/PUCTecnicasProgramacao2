@@ -1,18 +1,21 @@
 #include "matriz.h"
 
 
-unsigned int Matriz::getQtdeLinhas() const
+template <class T>
+unsigned int Matriz<T>::getQtdeLinhas() const
 {
     return qtdeLinhas;
 }
 
-unsigned int Matriz::getQtdeColunas() const
+template <class T>
+unsigned int Matriz<T>::getQtdeColunas() const
 {
     return qtdeColunas;
 }
 
 //funcao responsavel para pegar o valor de uma matriz
-int Matriz::getValor(const unsigned int linha, const unsigned int coluna)
+template <class T>
+T Matriz<T>::getValor(const unsigned int linha, const unsigned int coluna)
 {
     //Validações
     if(linha > qtdeLinhas - 1)
@@ -28,7 +31,8 @@ int Matriz::getValor(const unsigned int linha, const unsigned int coluna)
     return this->matriz[linha * this->qtdeColunas + coluna];
 }
 
-int Matriz::getValor(const unsigned int posicao)
+template <class T>
+T Matriz<T>::getValor(const unsigned int posicao)
 {
     if(posicao > (this->qtdeColunas * this->qtdeLinhas) - 1)
     {
@@ -38,7 +42,8 @@ int Matriz::getValor(const unsigned int posicao)
 }
 
 //funcao responsável por atribuir um valor na matriz
-void Matriz::setValor(const unsigned int linha, const unsigned int coluna, const int valor)
+template <class T>
+void Matriz<T>::setValor(const unsigned int linha, const unsigned int coluna, const T valor)
 {
     //Validações
     if(linha > qtdeLinhas - 1)
@@ -54,7 +59,8 @@ void Matriz::setValor(const unsigned int linha, const unsigned int coluna, const
     this->matriz[linha * this->qtdeColunas + coluna] = valor;
 }
 
-void Matriz::setValor(const unsigned int posicao, const int valor)
+template <class T>
+void Matriz<T>::setValor(const unsigned int posicao, const T valor)
 {
     if(posicao > (this->qtdeColunas * this->qtdeLinhas) - 1)
     {
@@ -63,7 +69,8 @@ void Matriz::setValor(const unsigned int posicao, const int valor)
     this->matriz[posicao] = valor;
 }
 
-void Matriz::print(QStandardItemModel *modelo)
+template <class T>
+void Matriz<T>::print(QStandardItemModel *modelo)
 {
     modelo->clear();
     modelo->setRowCount(qtdeLinhas);
@@ -81,7 +88,8 @@ void Matriz::print(QStandardItemModel *modelo)
     }
 }
 
-void Matriz::gerarValoresRandomicos()
+template <class T>
+void Matriz<T>::gerarValoresRandomicos()
 {
     for (unsigned int i = 0; i < (qtdeLinhas * qtdeColunas); ++i)
     {
@@ -89,7 +97,8 @@ void Matriz::gerarValoresRandomicos()
     }
 }
 
- Matriz Matriz::add(Matriz &matriz)
+template <class T>
+Matriz<T> Matriz<T>::add(Matriz<T> &matriz)
  {
      if (matriz.getQtdeLinhas() != this->qtdeLinhas)
      {
@@ -100,7 +109,7 @@ void Matriz::gerarValoresRandomicos()
      {
          throw "Para realiar a soma, a matriz passada no parâmetro deve possuir a mesma quantidade de colunas";
      }
-     Matriz resultado(this->qtdeLinhas, this->qtdeColunas);
+     Matriz<T> resultado(this->qtdeLinhas, this->qtdeColunas);
 
      for (unsigned int i = 0; i < (qtdeLinhas * qtdeColunas); ++i)
      {
@@ -110,12 +119,14 @@ void Matriz::gerarValoresRandomicos()
      return resultado;
  }
 
- Matriz Matriz::operator+(Matriz &matriz)
+template <class T>
+Matriz<T> Matriz<T>::operator+(Matriz<T> &matriz)
  {
      return this->add(matriz);
  }
 
- Matriz Matriz::sub(Matriz &matriz)
+template <class T>
+Matriz<T> Matriz<T>::sub(Matriz<T> &matriz)
  {
      if (matriz.getQtdeLinhas() != this->qtdeLinhas)
      {
@@ -126,7 +137,7 @@ void Matriz::gerarValoresRandomicos()
      {
          throw "Para realiar a soma, a matriz passada no parâmetro deve possuir a mesma quantidade de colunas";
      }
-     Matriz resultado(this->qtdeLinhas, this->qtdeColunas);
+     Matriz<T> resultado(this->qtdeLinhas, this->qtdeColunas);
 
      for (unsigned int i = 0; i < (qtdeLinhas * qtdeColunas); ++i)
      {
@@ -136,19 +147,20 @@ void Matriz::gerarValoresRandomicos()
      return resultado;
  }
 
- Matriz Matriz::operator-(Matriz &matriz)
+template <class T>
+Matriz<T> Matriz<T>::operator-(Matriz<T> &matriz)
  {
      return sub(matriz);
  }
 
- Matriz Matriz::mul(Matriz &matriz)
+template <class T>
+Matriz<T> Matriz<T>::mul(Matriz<T> &matriz)
  {
-
      if (matriz.getQtdeLinhas() != this->qtdeColunas)
      {
          throw "A quantidade de colunas da matriz A tem que ser igual a quantidade de linhas da Matriz B";
      }
-     Matriz resultado(this->qtdeLinhas, matriz.getQtdeColunas());
+     Matriz<T> resultado(this->qtdeLinhas, matriz.getQtdeColunas());
 
      for (unsigned int linha = 0; linha < this->qtdeLinhas; linha++)
      {
@@ -165,12 +177,14 @@ void Matriz::gerarValoresRandomicos()
      return resultado;
  }
 
- Matriz Matriz::operator*(Matriz &matriz)
+template <class T>
+Matriz<T> Matriz<T>::operator*(Matriz<T> &matriz)
  {
     return mul(matriz);
  }
 
- Matriz::Matriz(const unsigned int qtdeLinhas, const unsigned int qtdeColunas)
+template <class T>
+Matriz<T>::Matriz(const unsigned int qtdeLinhas, const unsigned int qtdeColunas)
 {
     if (qtdeLinhas <= 0)
     {
@@ -191,8 +205,32 @@ void Matriz::gerarValoresRandomicos()
     }
 }
 
-Matriz::~Matriz()
+template <class T>
+Matriz<T>::~Matriz()
 {
     delete []matriz;
 }
 
+template <class T>
+unsigned int Vetor<T>::getQtdeLinhas() const
+{
+    return Matriz<T>::getQtdeLinhas();
+}
+
+template <class T>
+T Vetor<T>::getValor(const unsigned int linha)
+{
+    return Matriz<T>::getValor(linha);
+}
+
+template <class T>
+void Vetor<T>::setValor(const unsigned int posicao, const T valor)
+{
+    Matriz<T>::setValor(posicao, valor);
+}
+
+template <class T>
+void Vetor<T>::print(QStandardItemModel *modelo)
+{
+    Matriz<T>::print(modelo);
+}
